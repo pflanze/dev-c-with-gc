@@ -14,3 +14,4 @@
 // udn dnn alloc von closr js t ussn  f  chmn,innen.
 
 
+#define ALLOC_CLOSURE 
