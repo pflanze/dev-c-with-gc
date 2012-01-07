@@ -28,3 +28,7 @@ int main () {
     f(10,11);
     return 0;
 }
+
+STARTDEF(myfunction,int a)
+  asdfasdf 
+ENDDEF
