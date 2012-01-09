@@ -54,11 +54,12 @@ struct map_arg {
     struct pair* lis;
 };
 
-void map (struct Empty_env* env, struct map_arg* arg) {
+void map (struct Empty_env* env, struct map_arg* arg, CONT) {
     if (!(arg->lis)) {
 	RETURN(NULL);
     } else {
-	ç
+	pair new;
+	new.car = ç
     }
 }
 
