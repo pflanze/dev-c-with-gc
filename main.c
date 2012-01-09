@@ -19,7 +19,7 @@ void f (struct f_env* env, struct f_arg* arg) {
 //typedef  generic_proc;
 
 struct {
-    void(proc)(struct f_env* env, struct f_arg* arg);
+    void(*proc)(struct f_env* env, struct f_arg* arg);
     struct f_env env;
 } f_closure;
 
