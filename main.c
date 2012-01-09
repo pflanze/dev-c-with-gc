@@ -33,17 +33,34 @@ struct pair {
 // needed yeah, or dyn dispatch
 
 /* General types (*Interface*!), if C had struct equiv typing, right?,
-   or, just *do* use these in definitions? -- AH, env is (ehr, has to be) actually unchecked. */
+   or, just *do* use these in definitions? -- AH, env is (ehr, has to
+   be) actually unchecked. */
 
-struct mapfn_env {
+struct mapfn_arg {
+    Object v;
+};
 
-//struct map_env not needed
+//struct map_env not needed, except for uniformity, but, alas,
+
+struct Empty_env {
+};
+
+struct Some_env {
+    /* anything */
+};
+
 struct map_arg {
-    void(*mapfn)(struct mapfn_env* env, struct mapfn_arg* arg);
+    void(*mapfn)(struct Some_env* env, struct mapfn_arg* arg);
     struct pair* lis;
+};
+
+void map (struct Empty_env* env, struct map_arg* arg) {
+    if (!(arg->lis)) {
+	RETURN(NULL);
+    } else {
+	ç
+    }
 }
-
-
 
 int main () {
     struct f_env env= {
