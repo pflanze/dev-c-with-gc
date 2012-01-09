@@ -25,6 +25,13 @@ struct {
 
 
 int main () {
-    f(10,11);
+    struct f_env env= {
+	10
+    };
+    struct f_arg arg= {
+	11,
+	12
+    };
+    f(&env,&arg);
     return 0;
 }
