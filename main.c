@@ -2,25 +2,25 @@
 
 #include <stdio.h>
 
-struct {
+struct f_env {
     int a;
 } f_env;
 
-struct {
+struct f_arg {
     int b;
     int c;
 } f_arg;
 
-void f (f_env* env, f_arg* arg) {
+void f (struct f_env* env, struct f_arg* arg) {
     printf("vars %i %i %i\n", env->a, arg->b, arg->c);
 }
 
 // a procedure that takes an env, and, hm, hm.
-typedef  generic_proc;
+//typedef  generic_proc;
 
 struct {
-    (proc)(f_env* env, f_arg* arg);
-    f_env env;
+    void(proc)(struct f_env* env, struct f_arg* arg);
+    struct f_env env;
 } f_closure;
 
 
