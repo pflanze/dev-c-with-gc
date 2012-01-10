@@ -45,8 +45,14 @@ struct Some_env {
     /* anything */
 };
 
+/* interface, with undefined env */
+struct {
+    Object(*proc)(struct Some_env* env, Object v);
+    struct Some_env env;
+} mapfn_closure;
+
 pair* map (struct Empty_env* _env,
-	   Object(*mapfn)(struct Some_env* env, Object v),
+	   struct mapfn_closure* mapfn,
 	   struct pair* lis) {
     if (!(arg->lis)) {
 	return NULL;
