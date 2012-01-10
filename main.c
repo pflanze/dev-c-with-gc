@@ -36,15 +36,12 @@ map (struct Empty_env* _env,
 }
 
 
-struct printlis_env {
-    char* prefix;
-};
-
-void
-printlis (struct printlis_env* env,
-	  pair_t* lis,
-	  int i,
-	  pair_t* origlis) {
+BEGIN_DEFN(void,
+	   printlis,
+	   pair_t* lis,
+	   ARG(int i,
+	       pair_t* origlis),
+	   ENV(char* prefix)) {
     if (! lis) {
 	printlis(env, origlis, i, origlis);
     } else {
@@ -54,6 +51,7 @@ printlis (struct printlis_env* env,
 	printlis(env, lis->cdr, i+1, origlis);
     }
 }
+END_DEFN(printlis)
 
 struct printlis_closure {
     void (*proc) (struct printlis_env* env,
