@@ -9,3 +9,13 @@
 
 #define LET_NEW(varname, type) type* varname = NEW(type)
 
+
+typedef void* Object;
+
+struct Empty_env {
+};
+
+struct Some_env {
+    /* anything */
+};
+

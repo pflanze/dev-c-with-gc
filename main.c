@@ -6,13 +6,8 @@ struct f_env {
     int a;
 };
 
-struct f_arg {
-    int b;
-    int c;
-};
-
-void f (struct f_env* env, struct f_arg* arg) {
-    printf("vars %i %i %i\n", env->a, arg->b, arg->c);
+void f (struct f_env* env, int b, int c) {
+    printf("vars %i %i %i\n", env->a, b, c);
 }
 
 struct {
@@ -20,8 +15,6 @@ struct {
     struct f_env env;
 } f_closure;
 
-
-typedef void* Object;
 
 /* lists */
 
@@ -32,18 +25,6 @@ struct pair {
 // flat kinds of pairs?...  then multitude of map implementations
 // needed yeah, or dyn dispatch
 
-/* General types (*Interface*!), if C had struct equiv typing, right?,
-   or, just *do* use these in definitions? -- AH, env is (ehr, has to
-   be) actually unchecked. */
-
-//struct map_env not needed, except for uniformity, but, alas,
-
-struct Empty_env {
-};
-
-struct Some_env {
-    /* anything */
-};
 
 /* interface, with undefined env */
 struct {
