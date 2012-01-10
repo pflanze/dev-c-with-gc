@@ -58,8 +58,9 @@ pair* map (struct Empty_env* env, struct map_arg* arg, TRAMP) {
     if (!(arg->lis)) {
 	return NULL;
     } else {
-	pair* new= NEW(pair);
-	new->car = map_arg->mapfn(arg->lis->car)
+	pair* new= MAKE(pair);
+	SET_CALL(new->car, map_arg->mapfn, arg->lis->car);
+	SET_CALL(new->cdr, ç  map_arg->mapfn, arg->lis->cdr);
     }
 }
 
