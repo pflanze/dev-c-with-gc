@@ -73,16 +73,59 @@ make_printlis (struct Empty_env* _env,
 }
 
 
-int main (int argc, char** argv) {
-    pair_t* lis=NULL;
-    int i;
-    for (i=argc-1; i>=0; i--) {
-	LET_NEW(p, pair_t);
-	p->car = argv[i];
-	p->cdr= lis;
-	lis= p;
+// mutual recursion example
+typedef int BOOL;
+#define FALSE 0
+#define TRUE 1
+
+BOOL
+zerop (struct Empty_env* _env,
+       long n) {
+    return (n == 0);
+}
+
+BOOL
+evenp (struct Empty_env* _env,
+       long n);
+
+BOOL
+oddp (struct Empty_env* _env,
+      long n) {
+    if (zerop(NULL, n)) {
+	return FALSE;
+    } else {
+	return evenp(NULL, n-1);
     }
-    struct printlis_closure* myprintlis= make_printlis(NULL,"argv");
-    CALL(myprintlis, lis, 0, lis);
+}
+
+BOOL
+evenp (struct Empty_env* _env,
+       long n) {
+    if (zerop(NULL, n)) {
+	return TRUE;
+    } else {
+	return oddp(NULL, n-1);
+    }
+}
+
+
+int main (int argc, char** argv) {
+    if (argc==2) {
+	long v= atol(argv[1]);
+	printf("is number %ld even?: %s\n",
+	       v,
+	       (evenp(NULL,v) ? "yes" : "no"));
+    } else {
+	pair_t* lis=NULL;
+	int i;
+	for (i=argc-1; i>=0; i--) {
+	    LET_NEW(p, pair_t);
+	    p->car = argv[i];
+	    p->cdr= lis;
+	    lis= p;
+	}
+	struct printlis_closure* myprintlis= make_printlis(NULL,"argv");
+	CALL(myprintlis, lis, 0, lis);
+    }
     return 0;
 }
