@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "c-with-gc.h"
 
 #include <stdio.h>
@@ -10,10 +12,10 @@ void f (struct f_env* env, int b, int c) {
     printf("vars %i %i %i\n", env->a, b, c);
 }
 
-struct {
-    void(*proc)(struct f_env* env, struct f_arg* arg);
+struct f_closure {
+    void(*proc)(struct f_env* env, int b, int c);
     struct f_env env;
-} f_closure;
+};
 
 
 /* lists */
@@ -25,20 +27,22 @@ struct pair {
 // flat kinds of pairs?...  then multitude of map implementations
 // needed yeah, or dyn dispatch
 
+typedef struct pair pair_t;
 
 /* interface, with undefined env */
-struct {
+struct mapfn_closure {
     Object(*proc)(struct Some_env* env, Object v);
     struct Some_env env;
-} mapfn_closure;
+};
 
-pair* map (struct Empty_env* _env,
+pair_t*
+map (struct Empty_env* _env,
 	   struct mapfn_closure* mapfn,
-	   struct pair* lis) {
-    if (!(arg->lis)) {
+	   pair_t* lis) {
+    if (!lis) {
 	return NULL;
     } else {
-	LET_NEW(new, pair);
+	LET_NEW(new, pair_t);
 	new->car= CALL(mapfn, lis->car);
 	new->cdr= map(NULL, mapfn, lis->cdr);
 	return new;
@@ -49,10 +53,6 @@ int main () {
     struct f_env env= {
 	10
     };
-    struct f_arg arg= {
-	11,
-	12
-    };
-    f(&env,&arg);
+    f(&env,11,12);
     return 0;
 }

@@ -19,3 +19,6 @@ struct Some_env {
     /* anything */
 };
 
+
+#define NEW(type) malloc(sizeof(type)) // ç
+
