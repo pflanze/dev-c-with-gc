@@ -50,7 +50,7 @@ struct Some_env {
 };
 
 struct map_arg {
-    void(*mapfn)(struct Some_env* env, struct mapfn_arg* arg);
+    Object(*mapfn)(struct Some_env* env, struct mapfn_arg* arg);
     struct pair* lis;
 };
 
@@ -59,7 +59,7 @@ pair* map (struct Empty_env* env, struct map_arg* arg, TRAMP) {
 	return NULL;
     } else {
 	pair* new= NEW(pair);
-	new->car = 
+	new->car = map_arg->mapfn(arg->lis->car)
     }
 }
 
