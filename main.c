@@ -36,10 +36,6 @@ struct pair {
    or, just *do* use these in definitions? -- AH, env is (ehr, has to
    be) actually unchecked. */
 
-struct mapfn_arg {
-    Object v;
-};
-
 //struct map_env not needed, except for uniformity, but, alas,
 
 struct Empty_env {
@@ -49,18 +45,15 @@ struct Some_env {
     /* anything */
 };
 
-struct map_arg {
-    Object(*mapfn)(struct Some_env* env, struct mapfn_arg* arg);
-    struct pair* lis;
-};
-
-pair* map (struct Empty_env* env, struct map_arg* arg, TRAMP) {
+pair* map (struct Empty_env* env,
+	   Object(*mapfn)(struct Some_env* env, Object v),
+	   struct pair* lis) {
     if (!(arg->lis)) {
 	return NULL;
     } else {
 	pair* new= MAKE(pair);
-	SET_CALL(new->car, map_arg->mapfn, arg->lis->car);
-	SET_CALL(new->cdr, ç  map_arg->mapfn, arg->lis->cdr);
+	SET_CALL(new->car, mapfn, lis->car);
+	SET_CALL(new->cdr, map, lis->cdr);
     }
 }
 
