@@ -22,3 +22,4 @@ struct Some_env {
 
 #define NEW(type) malloc(sizeof(type)) // ç
 
+#define CAST(type,val) (type)(val)
