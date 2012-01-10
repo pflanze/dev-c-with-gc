@@ -48,7 +48,8 @@ printlis (struct printlis_env* env,
     if (! lis) {
 	printlis(env, origlis, i, origlis);
     } else {
-	printf("%s element %i is value: %i\n", env->prefix, i, CAST(int,lis->car));
+	printf("%s element %i is value: '%s'\n",
+	       env->prefix, i, CAST(char*,lis->car));
 	// again shortcut self call, no need for closure ?
 	printlis(env, lis->cdr, i+1, origlis);
     }
@@ -74,7 +75,8 @@ make_printlis (struct Empty_env* _env,
 
 int main (int argc, char** argv) {
     pair_t* lis=NULL;
-    for (int i=argc-1, i>=0, i--) {
+    int i;
+    for (i=argc-1; i>=0; i--) {
 	LET_NEW(p, pair_t);
 	p->car = argv[i];
 	p->cdr= lis;
