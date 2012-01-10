@@ -43,20 +43,22 @@ struct printlis_env {
 void
 printlis (struct printlis_env* env,
 	  pair_t* lis,
-	  int i) {
+	  int i,
+	  pair_t* origlis) {
     if (! lis) {
-	return;
+	printlis(env, origlis, i, origlis);
     } else {
 	printf("%s element %i is value: %i\n", env->prefix, i, CAST(int,lis->car));
 	// again shortcut self call, no need for closure ?
-	printlis(env, lis->cdr, i+1);
+	printlis(env, lis->cdr, i+1, origlis);
     }
 }
 
 struct printlis_closure {
     void (*proc) (struct printlis_env* env,
 		  pair_t* lis,
-		  int i);
+		  int i,
+		  pair_t* origlis);
     struct printlis_env env;
 };
 
@@ -75,6 +77,6 @@ int main () {
     lis.car = CAST(Object,101);
     lis.cdr = NULL;
     struct printlis_closure* myprintlis= make_printlis(NULL,"lis");
-    CALL(myprintlis, &lis, 0);
+    CALL(myprintlis, &lis, 0, &lis);
     return 0;
 }
