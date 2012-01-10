@@ -14,3 +14,5 @@
 // udn dnn alloc von closr js t ussn  f  chmn,innen.
 
 
+#define LET_NEW(varname, type) type* varname = NEW(type)
+

@@ -57,7 +57,7 @@ pair* map (struct Empty_env* _env,
     if (!(arg->lis)) {
 	return NULL;
     } else {
-	pair* new= MAKE(pair);
+	LET_NEW(new, pair);
 	new->car= CALL(mapfn, lis->car);
 	new->cdr= map(NULL, mapfn, lis->cdr);
 	return new;
