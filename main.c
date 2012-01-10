@@ -45,15 +45,16 @@ struct Some_env {
     /* anything */
 };
 
-pair* map (struct Empty_env* env,
+pair* map (struct Empty_env* _env,
 	   Object(*mapfn)(struct Some_env* env, Object v),
 	   struct pair* lis) {
     if (!(arg->lis)) {
 	return NULL;
     } else {
 	pair* new= MAKE(pair);
-	SET_CALL(new->car, mapfn, lis->car);
-	SET_CALL(new->cdr, map, lis->cdr);
+	new->car= CALL(mapfn, lis->car);
+	new->cdr= map(NULL, mapfn, lis->cdr);
+	return new;
     }
 }
 
