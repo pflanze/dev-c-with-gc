@@ -72,11 +72,15 @@ make_printlis (struct Empty_env* _env,
 }
 
 
-int main () {
-    pair_t lis;
-    lis.car = CAST(Object,101);
-    lis.cdr = NULL;
-    struct printlis_closure* myprintlis= make_printlis(NULL,"lis");
-    CALL(myprintlis, &lis, 0, &lis);
+int main (int argc, char** argv) {
+    pair_t* lis=NULL;
+    for (int i=argc-1, i>=0, i--) {
+	LET_NEW(p, pair_t);
+	p->car = argv[i];
+	p->cdr= lis;
+	lis= p;
+    }
+    struct printlis_closure* myprintlis= make_printlis(NULL,"argv");
+    CALL(myprintlis, lis, 0, lis);
     return 0;
 }
