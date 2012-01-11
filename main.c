@@ -37,7 +37,7 @@ map (struct Empty_env* _env,
 
 
 DEFINE(void, printlis,
-       {char* prefix},
+       {char* prefix;},
        pair_t* lis,
        int i,
        pair_t* origlis) {
@@ -111,7 +111,7 @@ int main (int argc, char** argv) {
 	    p->cdr= lis;
 	    lis= p;
 	}
-	struct printlis_closure* myprintlis= make_printlis(NULL,"argv");
+	struct printlis_closure* myprintlis= CALL(make_printlis,"argv");
 	CALL(myprintlis, lis, 0, lis);
     }
     return 0;
