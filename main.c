@@ -51,7 +51,7 @@ DEFINE(void, printlis,
 }
 
 DEFINE(struct printlis_closure*, make_printlis,
-       NOENV,
+       {},
        char* prefix) {
     LET_NEW(res, struct printlis_closure);
     res->proc= &printlis_proc;
