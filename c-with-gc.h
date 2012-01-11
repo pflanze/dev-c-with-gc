@@ -7,6 +7,10 @@
 		       __VA_ARGS__);				\
 	struct Name##_env env;					\
     };								\
+    struct Name##_closure Name = {				\
+	Name##_proc,						\
+	{}							\
+    };								\
     Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
 
