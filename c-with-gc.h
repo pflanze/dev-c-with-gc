@@ -2,6 +2,8 @@
 
 #define __PICK2nd(a,...) __VA_ARGS__
 
+#define NOENV(it) 
+
 #define DEFINE(Rtype, Name, Env, ...)					\
 #define NOENV {}							\
     struct Name##_env Env;						\
