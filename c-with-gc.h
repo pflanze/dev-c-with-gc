@@ -16,6 +16,9 @@
     STATIC const struct Name##_closure* const Name = &(Name##_flat);	\
     STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__) 
 
+#define IMPLN(Rtype, Name, ...)						\
+    STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__)
+
 #define DEFCLOSURE(Rtype, Name, Env, ...)				\
     struct Name##_env Env;						\
     struct Name##_closure {						\
@@ -25,7 +28,7 @@
     };									\
     STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
-
+// #define IMPLCLOSURE  needed?
 
 
 #define CALL(Name,...) Name->proc(&(Name->env), __VA_ARGS__)

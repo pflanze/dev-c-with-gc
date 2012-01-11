@@ -86,9 +86,8 @@ DEFN(BOOL, oddp,
     }
 }
 
-BOOL
-evenp_proc (const struct evenp_env* _env,
-	    long n) {
+IMPLN(BOOL, evenp,
+      long n) {
     if (CALL(zerop, n)) {
 	return TRUE;
     } else {
