@@ -34,10 +34,44 @@ DEFN(pair_t*, map,
     }
 }
 
+DEFN(void, for_each,
+     struct for_each_closure* proc,
+     pair_t* lis) {
+    if (! lis) {
+	return;
+    } else {
+	CALL(proc, proc, lis->car);
+	SELFCALL(for_each, proc, lis->cdr);
+    }
+}
 
 DEFN(long, cj_atol,
      char* v) {
     return atol(v);
+}
+
+DEFN(void, print_long,
+     long v) {
+    printf("%ld\n", v);
+}
+
+DEFN(long, inc_long,
+     long v) {
+    return (v + 1);
+}
+
+DEFCLOSURE(long, add_long,
+	   { long a; },
+	   long b) {
+    return (a + b);
+}
+
+DEFN(struct add_long_closure*, make_add_long,
+     long a) {
+    LET_NEW(res, struct add_long_closure);
+    res->proc = &add_long;
+    res->env.a = a;
+    return res;
 }
 
 
