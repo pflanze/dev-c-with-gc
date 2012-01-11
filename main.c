@@ -36,12 +36,11 @@ map (struct Empty_env* _env,
 }
 
 
-BEGIN_DEFN(void,
-	   printlis,
-	   {char* prefix}
-	   pair_t* lis,
-	   int i,
-	   pair_t* origlis)
+DEFINE(void, printlis,
+       {char* prefix},
+       pair_t* lis,
+       int i,
+       pair_t* origlis) {
     if (! lis) {
 	TCALL(printlis, origlis, i, origlis);
     } else {
@@ -49,19 +48,11 @@ BEGIN_DEFN(void,
 	       env->prefix, i, CAST(char*,lis->car));
 	TCALL(printlis, lis->cdr, i+1, origlis);
     }
-END_DEFN(printlis)
+}
 
-struct printlis_closure {
-    void (*proc) (struct printlis_env* env,
-		  pair_t* lis,
-		  int i,
-		  pair_t* origlis);
-    struct printlis_env env;
-};
-
-struct printlis_closure*
-make_printlis (struct Empty_env* _env,
-	       char* prefix) {
+DEFINE(struct printlis_closure*, make_printlis,
+       {},
+       char* prefix) {
     LET_NEW(res, struct printlis_closure);
     res->proc= &printlis;
     res->env.prefix= prefix;
