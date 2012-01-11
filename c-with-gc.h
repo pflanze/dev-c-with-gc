@@ -12,8 +12,8 @@
 	struct Name##_env env;						\
     };									\
     STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__);	\
-    struct Name##_closure Name##_flat = { Name##_proc,	{} };		\
-    STATIC struct Name##_closure* Name = &(Name##_flat);		\
+    struct Name##_closure const Name##_flat = { Name##_proc, {} };	\
+    STATIC struct Name##_closure* const Name = &(Name##_flat);		\
     STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
 
