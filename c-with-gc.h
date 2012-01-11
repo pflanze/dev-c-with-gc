@@ -2,6 +2,8 @@
 
 #define __PICK2nd(a,...) __VA_ARGS__
 
+#define STATIC static
+
 #define DEFINE(Rtype, Name, Env, ...)					\
     struct Name##_env Env;						\
     struct Name##_closure {						\
@@ -9,10 +11,10 @@
 		       __VA_ARGS__);					\
 	struct Name##_env env;						\
     };									\
-    Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__);		\
+    STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__);	\
     struct Name##_closure Name##_flat = { Name##_proc,	{} };		\
-    struct Name##_closure* Name = &(Name##_flat);			\
-    Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
+    STATIC struct Name##_closure* Name = &(Name##_flat);		\
+    STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
 
 #define CALL(Name,...) Name->proc(&(Name->env), __VA_ARGS__)
