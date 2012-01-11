@@ -10,7 +10,8 @@
 	struct Name##_env env;						\
     };									\
     Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__);		\
-    struct Name##_closure Name = { Name##_proc,	{} };			\
+    struct Name##_closure Name##_flat = { Name##_proc,	{} };		\
+    struct Name##_closure* Name = &(Name##_flat);			\
     Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
 
