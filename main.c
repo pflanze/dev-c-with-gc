@@ -21,18 +21,25 @@ struct mapfn_closure {
     struct Some_env env;
 };
 
-pair_t*
-map (struct Empty_env* _env,
-     struct mapfn_closure* mapfn,
-     pair_t* lis) {
+DEFINE(pair_t*, map,
+       {},
+       struct mapfn_closure* mapfn,
+       pair_t* lis) {
     if (!lis) {
 	return NULL;
     } else {
 	LET_NEW(new, pair_t);
 	new->car= CALL(mapfn, lis->car);
-	new->cdr= map(NULL, mapfn, lis->cdr);
+	new->cdr= SELFCALL(map, mapfn, lis->cdr);
 	return new;
     }
+}
+
+
+DEFINE(long, cj_atol,
+       {},
+       char* v) {
+    return atol(v);
 }
 
 
