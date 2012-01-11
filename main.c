@@ -42,11 +42,11 @@ DEFINE(void, printlis,
        int i,
        pair_t* origlis) {
     if (! lis) {
-	TCALL(printlis, origlis, i, origlis);
+	SELFCALL(printlis, origlis, i, origlis);
     } else {
 	printf("%s element %i is value: '%s'\n",
 	       env->prefix, i, CAST(char*,lis->car));
-	TCALL(printlis, lis->cdr, i+1, origlis);
+	SELFCALL(printlis, lis->cdr, i+1, origlis);
     }
 }
 

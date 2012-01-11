@@ -14,8 +14,9 @@
     Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
 
-#define CALL(varname,...) varname->proc(&(varname->env), __VA_ARGS__)
-#define TCALL(varname,...) varname->proc(&(varname->env), __VA_ARGS__)
+#define CALL(Name,...) Name->proc(&(Name->env), __VA_ARGS__)
+#define TCALL(Name,...) Name->proc(&(Name->env), __VA_ARGS__)
+#define SELFCALL(Name,...) Name##_proc(env, __VA_ARGS__)
 
 
 #define LET_NEW(varname, type) type* varname = NEW(type)
