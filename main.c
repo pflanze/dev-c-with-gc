@@ -21,10 +21,9 @@ struct mapfn_closure {
     struct Some_env env;
 };
 
-DEFINE(pair_t*, map,
-       {},
-       struct mapfn_closure* mapfn,
-       pair_t* lis) {
+DEFN(pair_t*, map,
+     struct mapfn_closure* mapfn,
+     pair_t* lis) {
     if (!lis) {
 	return NULL;
     } else {
@@ -36,18 +35,17 @@ DEFINE(pair_t*, map,
 }
 
 
-DEFINE(long, cj_atol,
-       {},
-       char* v) {
+DEFN(long, cj_atol,
+     char* v) {
     return atol(v);
 }
 
 
-DEFINE(void, printlis,
-       {char* prefix;},
-       pair_t* lis,
-       int i,
-       pair_t* origlis) {
+DEFCLOSURE(void, printlis,
+	   {char* prefix;},
+	   pair_t* lis,
+	   int i,
+	   pair_t* origlis) {
     if (! lis) {
 	SELFCALL(printlis, origlis, i, origlis);
     } else {
@@ -57,9 +55,8 @@ DEFINE(void, printlis,
     }
 }
 
-DEFINE(struct printlis_closure*, make_printlis,
-       {},
-       char* prefix) {
+DEFN(struct printlis_closure*, make_printlis,
+     char* prefix) {
     LET_NEW(res, struct printlis_closure);
     res->proc= &printlis_proc;
     res->env.prefix= prefix;
@@ -72,19 +69,16 @@ typedef int BOOL;
 #define FALSE 0
 #define TRUE 1
 
-DEFINE(BOOL, zerop,
-       {},
-       long n) {
+DEFN(BOOL, zerop,
+     long n) {
     return (n == 0);
 }
 
-DEFINE(BOOL, evenp,
-       {},
-       long n);
+DEFN(BOOL, evenp,
+     long n);
 
-DEFINE(BOOL, oddp,
-       {},
-       long n) {
+DEFN(BOOL, oddp,
+     long n) {
     if (CALL(zerop, n)) {
 	return FALSE;
     } else {
@@ -93,7 +87,7 @@ DEFINE(BOOL, oddp,
 }
 
 BOOL
-evenp_proc (struct evenp_env* _env,
+evenp_proc (const struct evenp_env* _env,
 	    long n) {
     if (CALL(zerop, n)) {
 	return TRUE;

@@ -4,17 +4,28 @@
 
 #define STATIC static
 
-#define DEFINE(Rtype, Name, Env, ...)					\
+#define DEFN(Rtype, Name, ...)						\
+    struct Name##_env {};						\
+    struct Name##_closure {						\
+	Rtype (*const proc) (const struct Name##_env* env,		\
+			     __VA_ARGS__);				\
+	const struct Name##_env env;					\
+    };									\
+    STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__); \
+    STATIC const struct Name##_closure Name##_flat = { Name##_proc, {} }; \
+    STATIC const struct Name##_closure* const Name = &(Name##_flat);	\
+    STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__) 
+
+#define DEFCLOSURE(Rtype, Name, Env, ...)				\
     struct Name##_env Env;						\
     struct Name##_closure {						\
 	Rtype (*proc) (struct Name##_env* env,				\
 		       __VA_ARGS__);					\
 	struct Name##_env env;						\
     };									\
-    STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__);	\
-    struct Name##_closure const Name##_flat = { Name##_proc, {} };	\
-    STATIC struct Name##_closure* const Name = &(Name##_flat);		\
     STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
+
+
 
 
 #define CALL(Name,...) Name->proc(&(Name->env), __VA_ARGS__)
