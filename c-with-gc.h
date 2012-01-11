@@ -1,14 +1,19 @@
 #define ENV(...) { __VA_ARGS__ }
 
-#define BEGIN_DEFN(rtype, name, arg, env)		\
-    struct name##_env env				\
-    struct name##_closure {				\
-    						\
-    }						\
-						\
-    rtype name (__VA_ARGS__) {
+#define BEGIN_DEFN(Rtype, Name, Env, ...)		\
+    struct Name##_env Env;				\
+    struct Name##_closure {				\
+	Rtype (*proc) (struct Name##_env* env,		\
+		       __VA_ARGS__);			\
+	struct Name##_env env;				\
+    };							\
+    Rtype Name##_proc (__VA_ARGS__) {
 
-#define END_DEFN() }
+#define END_DEFN(Name) }			\
+	struct Name##_closure Name = {		\
+	    \
+	    \
+	};
 
 
 #define CALL(varname,...) varname->proc(&(varname->env), __VA_ARGS__)

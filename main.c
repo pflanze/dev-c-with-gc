@@ -38,19 +38,17 @@ map (struct Empty_env* _env,
 
 BEGIN_DEFN(void,
 	   printlis,
+	   {char* prefix}
 	   pair_t* lis,
-	   ARG(int i,
-	       pair_t* origlis),
-	   ENV(char* prefix)) {
+	   int i,
+	   pair_t* origlis)
     if (! lis) {
-	printlis(env, origlis, i, origlis);
+	TCALL(printlis, origlis, i, origlis);
     } else {
 	printf("%s element %i is value: '%s'\n",
 	       env->prefix, i, CAST(char*,lis->car));
-	// again shortcut self call, no need for closure ?
-	printlis(env, lis->cdr, i+1, origlis);
+	TCALL(printlis, lis->cdr, i+1, origlis);
     }
-}
 END_DEFN(printlis)
 
 struct printlis_closure {
