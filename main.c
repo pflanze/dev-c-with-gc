@@ -65,33 +65,33 @@ typedef int BOOL;
 #define FALSE 0
 #define TRUE 1
 
-BOOL
-zerop (struct Empty_env* _env,
+DEFINE(BOOL, zerop,
+       {},
        long n) {
     return (n == 0);
 }
 
-BOOL
-evenp (struct Empty_env* _env,
+DEFINE(BOOL, evenp,
+       {},
        long n);
 
-BOOL
-oddp (struct Empty_env* _env,
-      long n) {
-    if (zerop(NULL, n)) {
+DEFINE(BOOL, oddp,
+       {},
+       long n) {
+    if (CALL(zerop, n)) {
 	return FALSE;
     } else {
-	return evenp(NULL, n-1);
+	return CALL(evenp, n-1);
     }
 }
 
 BOOL
-evenp (struct Empty_env* _env,
-       long n) {
-    if (zerop(NULL, n)) {
+evenp_proc (struct evenp_env* _env,
+	    long n) {
+    if (CALL(zerop, n)) {
 	return TRUE;
     } else {
-	return oddp(NULL, n-1);
+	return CALL(oddp, n-1);
     }
 }
 
@@ -101,7 +101,7 @@ int main (int argc, char** argv) {
 	long v= atol(argv[1]);
 	printf("is number %ld even?: %s\n",
 	       v,
-	       (evenp(NULL,v) ? "yes" : "no"));
+	       (CALL(evenp,v) ? "yes" : "no"));
     } else {
 	pair_t* lis=NULL;
 	int i;
