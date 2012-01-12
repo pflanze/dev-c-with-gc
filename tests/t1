@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -eu
+
+tmp=`tempfile`
+
+# test whether TCO works
+
+ulimit -S -s 8000
+./main 20000000 > "$tmp"
+
+diff "$tmp" /dev/stdin <<EOF
+is number 20000000 even?: yes
+EOF
