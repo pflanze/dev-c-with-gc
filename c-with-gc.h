@@ -37,7 +37,10 @@
 
 
 #define LET_NEW(varname, type) type* varname = NEW(type)
-
+#define LET_CLOSURE(varname, name, vals)		\
+    LET_NEW(varname, struct name##_closure);		\
+    varname->proc = name##_proc;			\
+    varname->env= vals;
 
 typedef void* Object;
 
