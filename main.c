@@ -15,6 +15,14 @@ struct pair {
 
 typedef struct pair pair_t;
 
+pair_t* cons (Object car, Object cdr) {
+    LET_NEW(new, pair_t);
+    new->car= car;
+    new->cdr= cdr;
+    return new;
+}
+
+
 /* interface, with undefined env */
 struct mapfn_closure {
     Object(*proc)(struct Some_env* env, Object v);
@@ -27,10 +35,8 @@ DEFN(pair_t*, map,
     if (!lis) {
 	return NULL;
     } else {
-	LET_NEW(new, pair_t);
-	new->car= CALL(mapfn, lis->car);
-	new->cdr= SELFCALL(map, mapfn, lis->cdr);
-	return new;
+	return cons(CALL(mapfn, lis->car),
+		    SELFCALL(map, mapfn, lis->cdr));
     }
 }
 
@@ -134,10 +140,7 @@ int main (int argc, char** argv) {
 	pair_t* lis=NULL;
 	int i;
 	for (i=argc-1; i>=0; i--) {
-	    LET_NEW(p, pair_t);
-	    p->car = argv[i];
-	    p->cdr= lis;
-	    lis= p;
+	    lis= cons(argv[i], lis);
 	}
 	struct printlis_closure* myprintlis= CALL(make_printlis,"argv");
 	CALL(myprintlis, lis, 0, lis);
