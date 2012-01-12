@@ -38,10 +38,18 @@
 
 #define LET_NEW(varname, type) type* varname = NEW(type)
 
-#define LET_CLOSURE(varname, name, membername,...)	\
-    LET_NEW(varname, struct name##_closure);		\
-    varname->proc = name##_proc;			\
-    ENV_INIT(varname, membername, __VA_ARGS__);
+#include <string.h>
+
+#define LET_CLOSURE(varname, name, membernames)				\
+    LET_NEW(varname, struct name##_closure);				\
+    {									\
+	struct name##_closure let_closure_tmp = {			\
+	    name##_proc,						\
+	    membernames							\
+	};								\
+	memcpy(varname,&let_closure_tmp, sizeof(struct name##_closure)); \
+    }
+
 
 typedef void* Object;
 
