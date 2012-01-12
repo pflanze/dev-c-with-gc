@@ -102,7 +102,7 @@ DEFN(BOOL, zerop,
     return (n == 0);
 }
 
-DEFN(BOOL, evenp,
+DECLN(BOOL, evenp,
      long n);
 
 DEFN(BOOL, oddp,

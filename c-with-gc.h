@@ -4,7 +4,7 @@
 
 #define STATIC static
 
-#define DEFN(Rtype, Name, ...)						\
+#define DECLN(Rtype, Name, ...)						\
     struct Name##_env {};						\
     struct Name##_closure {						\
 	Rtype (*const proc) (const struct Name##_env* env,		\
@@ -15,6 +15,8 @@
     STATIC const struct Name##_closure Name##_flat = { Name##_proc, {} }; \
     STATIC const struct Name##_closure* const Name = &(Name##_flat);	\
     STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__) 
+
+#define DEFN DECLN
 
 #define IMPLN(Rtype, Name, ...)						\
     STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__)
