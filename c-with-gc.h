@@ -50,6 +50,11 @@
 	memcpy(varname,&let_closure_tmp, sizeof(struct clname##_closure)); \
     }
 
+#define NEW_CLOSURE(clname, membernames) \
+    { \
+    LET_CLOSURE(new_closure_tmp, clname, membernames); \
+    
+
 
 typedef void* Object;
 
