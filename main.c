@@ -61,7 +61,7 @@ DEFN(long, inc_long,
 }
 
 DEFCLOSURE(long, add_long,
-	   { long a; },
+	   ENV( long a; ),
 	   long b) {
     return (env->a + b);
 }

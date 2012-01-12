@@ -19,13 +19,18 @@
 #define IMPLN(Rtype, Name, ...)						\
     STATIC Rtype Name##_proc (const struct Name##_env* env, __VA_ARGS__)
 
+#define DE_ENV(...) __VA_ARGS__
+
 #define DEFCLOSURE(Rtype, Name, Env, ...)				\
-    struct Name##_env Env;						\
+    struct Name##_env { DE_##Env };					\
     struct Name##_closure {						\
 	Rtype (*proc) (struct Name##_env* env,				\
 		       __VA_ARGS__);					\
 	struct Name##_env env;						\
     };									\
+    STATIC struct Name##_closure* new_##Name##_closure (DE_##Env) {	\
+	fa;								\
+    }									\
     STATIC Rtype Name##_proc (struct Name##_env* env, __VA_ARGS__) 
 
 // #define IMPLCLOSURE  needed?
