@@ -68,10 +68,7 @@ DEFCLOSURE(long, add_long,
 
 DEFN(struct add_long_closure*, make_add_long,
      long a) {
-    LET_NEW(res, struct add_long_closure);
-    res->proc = add_long_proc;
-    res->env.a = a;
-    return res;
+    RETURN_CLOSURE(add_long, a);
 }
 
 
