@@ -40,14 +40,14 @@
 
 #include <string.h>
 
-#define LET_CLOSURE(varname, name, membernames)				\
-    LET_NEW(varname, struct name##_closure);				\
+#define LET_CLOSURE(varname, clname, membernames)			\
+    LET_NEW(varname, struct clname##_closure);				\
     {									\
-	struct name##_closure let_closure_tmp = {			\
-	    name##_proc,						\
+	struct clname##_closure let_closure_tmp = {			\
+	    clname##_proc,						\
 	    membernames							\
 	};								\
-	memcpy(varname,&let_closure_tmp, sizeof(struct name##_closure)); \
+	memcpy(varname,&let_closure_tmp, sizeof(struct clname##_closure)); \
     }
 
 
