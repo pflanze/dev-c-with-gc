@@ -91,7 +91,7 @@ DEFCLOSURE(void, printlis,
 
 DEFN(struct printlis_closure*, make_printlis,
      char* prefix) {
-    RETURN_CLOSURE(printlis, {prefix});
+    RETURN_CLOSURE(printlis, prefix);
 }
 
 
