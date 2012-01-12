@@ -63,13 +63,13 @@ DEFN(long, inc_long,
 DEFCLOSURE(long, add_long,
 	   { long a; },
 	   long b) {
-    return (a + b);
+    return (env->a + b);
 }
 
 DEFN(struct add_long_closure*, make_add_long,
      long a) {
     LET_NEW(res, struct add_long_closure);
-    res->proc = &add_long;
+    res->proc = add_long_proc;
     res->env.a = a;
     return res;
 }
