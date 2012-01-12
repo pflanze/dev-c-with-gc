@@ -1,6 +1,3 @@
-#define ENV(...) { __VA_ARGS__ }
-
-#define __PICK2nd(a,...) __VA_ARGS__
 
 #define STATIC static
 
