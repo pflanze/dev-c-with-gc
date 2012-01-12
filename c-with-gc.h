@@ -31,7 +31,6 @@
 
 
 #define CALL(Name,...) Name->proc(&(Name->env), __VA_ARGS__)
-#define TCALL(Name,...) Name->proc(&(Name->env), __VA_ARGS__)
 #define SELFCALL(Name,...) Name##_proc(env, __VA_ARGS__)
 
 
