@@ -4,6 +4,8 @@ set -eu
 
 tmp=`tempfile`
 
+trap 'rm "$tmp"' EXIT
+
 # test whether TCO works
 
 ulimit -S -s 8000
