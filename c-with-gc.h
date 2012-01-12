@@ -38,11 +38,6 @@
 
 #define LET_NEW(varname, type) type* varname = NEW(type)
 
-#define ENV_INIT(varname) 
-#define ENV_INIT(varname, membername, ...)	\
-    varname->env.membername = membername;	\
-    ENV_INIT(varname, __VA_ARGS__);
-
 #define LET_CLOSURE(varname, name, membername,...)	\
     LET_NEW(varname, struct name##_closure);		\
     varname->proc = name##_proc;			\
