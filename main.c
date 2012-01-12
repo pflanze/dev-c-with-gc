@@ -91,7 +91,7 @@ DEFCLOSURE(void, printlis,
 
 DEFN(struct printlis_closure*, make_printlis,
      char* prefix) {
-    LET_CLOSURE(res, printlis, {prefix});
+    LET_CLOSURE(res, printlis,  prefix);
     return res;
 }
 
