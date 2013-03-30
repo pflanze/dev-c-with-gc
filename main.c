@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "c-with-gc.h"
+#include "cclosures.h"
 
 #include <stdio.h>
 

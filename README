@@ -1,4 +1,2 @@
-Infrastructure to write programs in C with closures and garbage
-collection, aiming to provide a usable substrate for functional
-programming.
+Infrastructure to write programs with closures in C.
 
