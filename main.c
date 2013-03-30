@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 
+typedef void* Object;
+
 /* lists */
 
 struct pair {

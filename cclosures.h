@@ -56,8 +56,6 @@
     return return_closure_tmp;
 
 
-typedef void* Object;
-
 struct Empty_env {
 };
 
